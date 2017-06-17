@@ -1,0 +1,57 @@
+<!--Getting Trending News Topics
+
+To get news topics that are trending on social networks, send a GET request to:
+
+ https://api.cognitive.microsoft.com/bing/v5.0/news/trendingtopics  -->
+<div class="pageTops" id="pageTops">
+	<div class="newsItem" id="newsItem">
+	</div>
+ <script>
+ $(document).ready(function(){
+   Call_API();
+ });
+ function Call_API() {
+  $.ajax({
+    url: "https://api.cognitive.microsoft.com/bing/v5.0/news/trendingtopics?mkt=en-us",
+    beforeSend: function(xhrObj){
+        // Request headers
+        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","Paste-Subscription-Key");
+    },//beforeSend
+    type: "GET",
+    // Request body
+    data: "{body}",
+  })//$.ajax
+    .done(function(data) {
+       //  alert(data.value[0].name);
+        insertNews(data.value);
+    })//.done
+    .fail(function() {
+        alert("error");
+    });//.fail
+  };//function Call_API
+
+//function definition
+    function insertNews(newsArray)
+    {
+    	$.each(newsArray, function(index,eachNews)
+    	{
+	var idName="newsPlaceholder"+index;
+        $('.newsItem').append("<div id='"+idName+"'></div>");
+
+        $("#newsPlaceholder"+index).load("subsection_tt.html",function()
+        {
+		$("#newsPlaceholder"+index+" .newsImage").attr("src",newsArray[index].image.url);
+          $("#newsPlaceholder"+index+" .newsName").replaceWith(function(){
+             return "<h3>" + newsArray[index].name + "</h3>";
+           });//newsName
+					 $("#newsPlaceholder"+index+" .ReadMore").attr("href",newsArray[index].webSearchUrl);
+           //$("#newsPlaceholder"+index+" .ReadMore").attr("href",newsArray[index].WebSearchUrl);
+		$("#newsPlaceholder"+index+" .newsDescrip").replaceWith(function(){
+             return "<em>" + newsArray[index].query.text + "</em>";
+           });
+
+        });//$('#placeholder').load(
+      });//$.each(newsArray,
+    };//function insertNews
+</script>
+</div>

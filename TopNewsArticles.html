@@ -1,0 +1,54 @@
+<!-- Getting the Top News Articles
+To request the top news stories, specify an empty query parameter-->
+<div class="pageTops" id="pageTops">
+	<div class="newsItem" id="newsItem">
+	</div>
+ <script>
+ $(document).ready(function(){
+   Call_API();
+ });
+ function Call_API() {
+  $.ajax({
+  url: 'https://api.cognitive.microsoft.com/bing/v5.0/news/search?q=&mkt=en-us',
+    beforeSend: function(xhrObj){
+        // Request headers
+        xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","Paste-Subscription-Key");
+    },//beforeSend
+    type: "GET",
+    // Request body
+    data: "{body}",
+  })//$.ajax
+    .done(function(data) {
+       //  alert(data.value[0].name);
+        insertNews(data.value);
+    })//.done
+    .fail(function() {
+        alert("error");
+    });//.fail
+  };//function Call_API
+
+//function definition
+    function insertNews(newsArray)
+    {
+    	$.each(newsArray, function(index,eachNews)
+    	{
+	var idName="newsPlaceholder"+index;
+        $('.newsItem').append("<div id='"+idName+"'></div>");
+
+        $("#newsPlaceholder"+index).load("subsection.html",function()
+        {
+	$("#newsPlaceholder"+index+" .newsImage").attr("src",newsArray[index].image.thumbnail.contentUrl);
+          $("#newsPlaceholder"+index+" .newsName").replaceWith(function(){
+             return "<h3>" + newsArray[index].name + "</h3>";
+           });//newsName
+$("#newsPlaceholder"+index+" .ReadMore").attr("href",newsArray[index].url);
+          // $("#newsPlaceholder"+index+" .ReadMore").attr("href",newsArray[index].url);
+		$("#newsPlaceholder"+index+" .newsDescrip").replaceWith(function(){
+             return "<em>" + newsArray[index].description + "</em>";
+           });
+
+        });//$('#placeholder').load(
+      });//$.each(newsArray,
+    };//function insertNews
+</script>
+</div>

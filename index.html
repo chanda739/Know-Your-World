@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+  <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="index.js"></script>
+</head>
+
+
+<body>
+  <div data-role="header">
+    <h1>Know Your World</h1>
+    <div data-role="navbar">
+        <ul>
+            <li class="active"><a href="#" id="topNews" data-icon="grid" >Top News</a></li>
+            <!-- <li><a href="#" id="searchQuery" data-icon="star">B</a></li> -->
+
+            <li><a href="#" id="headlinesArticle" data-icon="star">Headlines</a></li>
+            <li><a href="#" id="trendingNews" data-icon="tag">Trending</a></li>
+              <li><a href="#" id="Category" data-icon="info">Sports</a></li>
+        </ul>
+    </div><!-- /navbar -->
+  </div><!-- /header -->
+
+
+  <div id="placeholder">
+  </div><!-- /placeholder -->
+
+<div data-role="footer" data-position="fixed">
+  <h1>News Headlines </h1>
+</div><!-- /footer -->
+
+<script>
+       $("#topNews").click(function(){
+         $("#placeholder").load("TopNewsArticles.html");
+       });
+
+       $("#searchQuery").click(function(){
+         $("#placeholder").load("four.html");
+       });
+
+       $("#Category").click(function(){
+         $("#placeholder").load("TrendingNewsByCategory.html");
+       });
+
+       $("#headlinesArticle").click(function(){
+         $("#placeholder").load("NewsHeadlines&ArticlesAllCategory.html");
+       });
+
+       $("#trendingNews").click(function(){
+         $("#placeholder").load("trendingNews.html");
+       });
+</script>
+
+</body>
+</html>
